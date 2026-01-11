@@ -1,14 +1,14 @@
-package logward
+package logtide
 
 import "time"
 
-// Config holds the configuration for the LogWard client.
+// Config holds the configuration for the LogTide client.
 type Config struct {
-	// APIKey is the LogWard API key (required).
+	// APIKey is the LogTide API key (required).
 	APIKey string
 
-	// BaseURL is the LogWard API base URL.
-	// Default: "https://api.logward.dev"
+	// BaseURL is the LogTide API base URL.
+	// Default: "https://api.logtide.dev"
 	BaseURL string
 
 	// Service is the default service name for all logs (required).
@@ -39,7 +39,7 @@ type Option func(*Config)
 // DefaultConfig returns the default configuration.
 func DefaultConfig() *Config {
 	return &Config{
-		BaseURL:              "https://api.logward.dev",
+		BaseURL:              "https://api.logtide.dev",
 		Timeout:              30 * time.Second,
 		BatchSize:            100,
 		FlushInterval:        5 * time.Second,

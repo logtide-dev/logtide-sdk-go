@@ -1,10 +1,10 @@
-# LogWard Go SDK
+# LogTide Go SDK
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/logward-dev/logward-sdk-go.svg)](https://pkg.go.dev/github.com/logward-dev/logward-sdk-go)
-[![Go Report Card](https://goreportcard.com/badge/github.com/logward-dev/logward-sdk-go)](https://goreportcard.com/report/github.com/logward-dev/logward-sdk-go)
+[![Go Reference](https://pkg.go.dev/badge/github.com/logtide-dev/logtide-sdk-go.svg)](https://pkg.go.dev/github.com/logtide-dev/logtide-sdk-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/logtide-dev/logtide-sdk-go)](https://goreportcard.com/report/github.com/logtide-dev/logtide-sdk-go)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Official Go SDK for [LogWard](https://logward.dev) - A privacy-first, GDPR-compliant log management platform.
+Official Go SDK for [LogTide](https://logtide.dev) - A privacy-first, GDPR-compliant log management platform.
 
 ## Features
 
@@ -21,18 +21,18 @@ Official Go SDK for [LogWard](https://logward.dev) - A privacy-first, GDPR-compl
 
 ```bash
 # Install
-go get github.com/logward-dev/logward-sdk-go
+go get github.com/logtide-dev/logtide-sdk-go
 ```
 
 ```go
 // Use
-client, _ := logward.New(
-    logward.WithAPIKey("lp_your_api_key"),
-    logward.WithService("my-service"),
+client, _ := logtide.New(
+    logtide.WithAPIKey("lp_your_api_key"),
+    logtide.WithService("my-service"),
 )
 defer client.Close()
 
-client.Info(context.Background(), "Hello LogWard!", nil)
+client.Info(context.Background(), "Hello LogTide!", nil)
 ```
 
 **That's it!** See [Quick Start Guide](./docs/QUICKSTART.md) for detailed tutorial.
@@ -50,23 +50,23 @@ client.Info(context.Background(), "Hello LogWard!", nil)
 Customize the client behavior:
 
 ```go
-client, err := logward.New(
+client, err := logtide.New(
 	// Required
-	logward.WithAPIKey("lp_your_api_key"),
-	logward.WithService("my-service"),
+	logtide.WithAPIKey("lp_your_api_key"),
+	logtide.WithService("my-service"),
 
 	// Optional customization
-	logward.WithBaseURL("https://api.logward.dev"),
-	logward.WithBatchSize(100),                              // Max logs per batch
-	logward.WithFlushInterval(5*time.Second),                // Flush interval
-	logward.WithTimeout(30*time.Second),                     // HTTP timeout
-	logward.WithRetry(3, 1*time.Second, 60*time.Second),     // Max retries, min/max backoff
-	logward.WithCircuitBreaker(5, 30*time.Second),           // Failure threshold, timeout
+	logtide.WithBaseURL("https://api.logtide.dev"),
+	logtide.WithBatchSize(100),                              // Max logs per batch
+	logtide.WithFlushInterval(5*time.Second),                // Flush interval
+	logtide.WithTimeout(30*time.Second),                     // HTTP timeout
+	logtide.WithRetry(3, 1*time.Second, 60*time.Second),     // Max retries, min/max backoff
+	logtide.WithCircuitBreaker(5, 30*time.Second),           // Failure threshold, timeout
 )
 ```
 
 **Defaults:**
-- Base URL: `https://api.logward.dev`
+- Base URL: `https://api.logtide.dev`
 - Batch Size: 100 logs
 - Flush Interval: 5 seconds
 - Timeout: 30 seconds
@@ -117,11 +117,11 @@ See [examples/otel](./examples/otel) for complete example.
 err := client.Info(ctx, "message", nil)
 if err != nil {
 	switch {
-	case errors.Is(err, logward.ErrClientClosed):
+	case errors.Is(err, logtide.ErrClientClosed):
 		// Client was closed
-	case errors.Is(err, logward.ErrCircuitOpen):
+	case errors.Is(err, logtide.ErrCircuitOpen):
 		// Circuit breaker is open (too many failures)
-	case errors.Is(err, logward.ErrInvalidAPIKey):
+	case errors.Is(err, logtide.ErrInvalidAPIKey):
 		// Invalid API key
 	default:
 		// Handle other errors
@@ -135,12 +135,12 @@ Quick integration examples (full code in [docs/INTEGRATIONS.md](./docs/INTEGRATI
 
 **Gin:**
 ```go
-r.Use(LogwardMiddleware(client))
+r.Use(LogtideMiddleware(client))
 ```
 
 **Echo:**
 ```go
-e.Use(LogwardMiddleware(client))
+e.Use(LogtideMiddleware(client))
 ```
 
 **Standard Library:**
@@ -153,8 +153,8 @@ http.ListenAndServe(":8080", handler)
 
 Full API documentation with godoc:
 
-- **Online:** [pkg.go.dev/github.com/logward-dev/logward-sdk-go](https://pkg.go.dev/github.com/logward-dev/logward-sdk-go)
-- **Local:** Run `godoc -http=:6060` and visit http://localhost:6060/pkg/github.com/logward-dev/logward-sdk-go/
+- **Online:** [pkg.go.dev/github.com/logtide-dev/logtide-sdk-go](https://pkg.go.dev/github.com/logtide-dev/logtide-sdk-go)
+- **Local:** Run `godoc -http=:6060` and visit http://localhost:6060/pkg/github.com/logtide-dev/logtide-sdk-go/
 
 ## Performance
 
@@ -168,7 +168,7 @@ Full API documentation with godoc:
 ## Requirements
 
 - Go 1.21 or later
-- LogWard account and API key
+- LogTide account and API key
 
 ## License
 
@@ -180,13 +180,13 @@ Contributions welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## Support
 
-- **Documentation:** [docs directory](./docs) | https://docs.logward.dev
-- **Issues:** [GitHub Issues](https://github.com/logward-dev/logward-sdk-go/issues)
-- **Email:** support@logward.dev
+- **Documentation:** [docs directory](./docs) | https://docs.logtide.dev
+- **Issues:** [GitHub Issues](https://github.com/logtide-dev/logtide-sdk-go/issues)
+- **Email:** support@logtide.dev
 
 ## Links
 
-- **LogWard Website:** https://logward.dev
-- **LogWard Dashboard:** https://app.logward.dev
-- **API Documentation:** https://pkg.go.dev/github.com/logward-dev/logward-sdk-go
+- **LogTide Website:** https://logtide.dev
+- **LogTide Dashboard:** https://app.logtide.dev
+- **API Documentation:** https://pkg.go.dev/github.com/logtide-dev/logtide-sdk-go
 - **Examples:** [examples directory](./examples)

@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-// Client wraps an HTTP client with LogWard-specific configuration.
+// Client wraps an HTTP client with LogTide-specific configuration.
 type Client struct {
 	httpClient *http.Client
 	baseURL    string
@@ -89,7 +89,7 @@ func (c *Client) Post(ctx context.Context, path string, payload interface{}) (*h
 	// Set headers
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("X-API-Key", c.apiKey)
-	req.Header.Set("User-Agent", "logward-sdk-go/0.1.0")
+	req.Header.Set("User-Agent", "logtide-sdk-go/0.1.0")
 
 	// Send request
 	resp, err := c.httpClient.Do(req)

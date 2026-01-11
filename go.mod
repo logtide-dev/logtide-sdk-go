@@ -1,4 +1,4 @@
-module github.com/logward-dev/logward-sdk-go
+module github.com/logtide-dev/logtide-sdk-go
 
 go 1.25.4
 

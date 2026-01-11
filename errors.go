@@ -1,4 +1,4 @@
-package logward
+package logtide
 
 import (
 	"errors"
@@ -36,7 +36,7 @@ func (e *ValidationError) Is(target error) bool {
 	return ok
 }
 
-// HTTPError represents an HTTP error response from the LogWard API.
+// HTTPError represents an HTTP error response from the LogTide API.
 type HTTPError struct {
 	StatusCode int
 	Message    string

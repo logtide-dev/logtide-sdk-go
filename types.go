@@ -1,4 +1,4 @@
-package logward
+package logtide
 
 import "time"
 
@@ -22,7 +22,7 @@ const (
 	LogLevelCritical LogLevel = "critical"
 )
 
-// Log represents a single log entry to be sent to LogWard.
+// Log represents a single log entry to be sent to LogTide.
 type Log struct {
 	// Time is the timestamp of the log entry. If not set, the current time will be used.
 	Time time.Time `json:"time"`

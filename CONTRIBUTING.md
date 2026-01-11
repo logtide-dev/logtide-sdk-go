@@ -1,13 +1,13 @@
-# Contributing to LogWard Go SDK
+# Contributing to LogTide Go SDK
 
-Thank you for your interest in contributing to the LogWard Go SDK!
+Thank you for your interest in contributing to the LogTide Go SDK!
 
 ## Development Setup
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/logward-dev/logward-sdk-go.git
-   cd logward-sdk-go
+   git clone https://github.com/logtide-dev/logtide-sdk-go.git
+   cd logtide-sdk-go
    ```
 
 2. **Install dependencies**
@@ -33,7 +33,7 @@ Thank you for your interest in contributing to the LogWard Go SDK!
 ## Project Structure
 
 ```
-logward-sdk-go/
+logtide-sdk-go/
 ├── client.go              # Main client implementation
 ├── config.go              # Configuration and options
 ├── types.go               # Core data types
@@ -119,7 +119,7 @@ go run main.go
 
 - Open an issue for bugs or feature requests
 - Start a discussion for questions
-- Email: support@logward.dev
+- Email: support@logtide.dev
 
 ## License
 

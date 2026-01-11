@@ -1,4 +1,4 @@
-package logward
+package logtide
 
 import (
 	"context"
@@ -7,10 +7,10 @@ import (
 	"sync"
 	"time"
 
-	internalhttp "github.com/logward-dev/logward-sdk-go/internal/http"
+	internalhttp "github.com/logtide-dev/logtide-sdk-go/internal/http"
 )
 
-// Client is the LogWard SDK client for sending logs.
+// Client is the LogTide SDK client for sending logs.
 type Client struct {
 	config         *Config
 	httpClient     *internalhttp.Client
@@ -22,7 +22,7 @@ type Client struct {
 	closed bool
 }
 
-// New creates a new LogWard client with the specified options.
+// New creates a new LogTide client with the specified options.
 func New(opts ...Option) (*Client, error) {
 	// Start with default config
 	config := DefaultConfig()
@@ -121,7 +121,7 @@ func (c *Client) log(ctx context.Context, level LogLevel, message string, metada
 	return c.batcher.Add(log)
 }
 
-// sendBatch sends a batch of logs to the LogWard API.
+// sendBatch sends a batch of logs to the LogTide API.
 func (c *Client) sendBatch(ctx context.Context, logs []Log) error {
 	// Validate batch
 	if err := validateBatch(logs); err != nil {

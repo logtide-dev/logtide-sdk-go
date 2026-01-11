@@ -5,20 +5,20 @@ import (
 	"log"
 	"time"
 
-	"github.com/logward-dev/logward-sdk-go"
+	"github.com/logtide-dev/logtide-sdk-go"
 )
 
 func main() {
-	// Create LogWard client
-	client, err := logward.New(
-		logward.WithAPIKey("lp_your_api_key_here"),
-		logward.WithService("example-service"),
+	// Create LogTide client
+	client, err := logtide.New(
+		logtide.WithAPIKey("lp_your_api_key_here"),
+		logtide.WithService("example-service"),
 		// Optional: customize configuration
-		// logward.WithBatchSize(50),
-		// logward.WithFlushInterval(10*time.Second),
+		// logtide.WithBatchSize(50),
+		// logtide.WithFlushInterval(10*time.Second),
 	)
 	if err != nil {
-		log.Fatalf("Failed to create LogWard client: %v", err)
+		log.Fatalf("Failed to create LogTide client: %v", err)
 	}
 
 	// Ensure logs are flushed on exit

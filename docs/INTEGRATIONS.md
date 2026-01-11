@@ -1,6 +1,6 @@
 # Framework Integrations
 
-This guide shows how to integrate the LogWard Go SDK with popular Go web frameworks.
+This guide shows how to integrate the LogTide Go SDK with popular Go web frameworks.
 
 ## Table of Contents
 
@@ -19,7 +19,7 @@ This guide shows how to integrate the LogWard Go SDK with popular Go web framewo
 
 ```bash
 go get github.com/gin-gonic/gin
-go get github.com/logward-dev/logward-sdk-go
+go get github.com/logtide-dev/logtide-sdk-go
 ```
 
 ### Middleware Implementation
@@ -30,10 +30,10 @@ package main
 import (
     "time"
     "github.com/gin-gonic/gin"
-    "github.com/logward-dev/logward-sdk-go"
+    "github.com/logtide-dev/logtide-sdk-go"
 )
 
-func LogwardMiddleware(client *logward.Client) gin.HandlerFunc {
+func LogtideMiddleware(client *logtide.Client) gin.HandlerFunc {
     return func(c *gin.Context) {
         start := time.Now()
 
@@ -54,14 +54,14 @@ func LogwardMiddleware(client *logward.Client) gin.HandlerFunc {
 }
 
 func main() {
-    client, _ := logward.New(
-        logward.WithAPIKey("lp_your_api_key"),
-        logward.WithService("gin-api"),
+    client, _ := logtide.New(
+        logtide.WithAPIKey("lp_your_api_key"),
+        logtide.WithService("gin-api"),
     )
     defer client.Close()
 
     r := gin.Default()
-    r.Use(LogwardMiddleware(client))
+    r.Use(LogtideMiddleware(client))
 
     r.GET("/", func(c *gin.Context) {
         c.JSON(200, gin.H{"message": "Hello!"})
@@ -81,7 +81,7 @@ func main() {
 
 ```bash
 go get github.com/labstack/echo/v4
-go get github.com/logward-dev/logward-sdk-go
+go get github.com/logtide-dev/logtide-sdk-go
 ```
 
 ### Middleware Implementation
@@ -92,10 +92,10 @@ package main
 import (
     "time"
     "github.com/labstack/echo/v4"
-    "github.com/logward-dev/logward-sdk-go"
+    "github.com/logtide-dev/logtide-sdk-go"
 )
 
-func LogwardMiddleware(client *logward.Client) echo.MiddlewareFunc {
+func LogtideMiddleware(client *logtide.Client) echo.MiddlewareFunc {
     return func(next echo.HandlerFunc) echo.HandlerFunc {
         return func(c echo.Context) error {
             start := time.Now()
@@ -118,14 +118,14 @@ func LogwardMiddleware(client *logward.Client) echo.MiddlewareFunc {
 }
 
 func main() {
-    client, _ := logward.New(
-        logward.WithAPIKey("lp_your_api_key"),
-        logward.WithService("echo-api"),
+    client, _ := logtide.New(
+        logtide.WithAPIKey("lp_your_api_key"),
+        logtide.WithService("echo-api"),
     )
     defer client.Close()
 
     e := echo.New()
-    e.Use(LogwardMiddleware(client))
+    e.Use(LogtideMiddleware(client))
 
     e.GET("/", func(c echo.Context) error {
         return c.JSON(200, map[string]string{"message": "Hello!"})
@@ -149,7 +149,7 @@ package main
 import (
     "net/http"
     "time"
-    "github.com/logward-dev/logward-sdk-go"
+    "github.com/logtide-dev/logtide-sdk-go"
 )
 
 type responseWriter struct {
@@ -162,7 +162,7 @@ func (rw *responseWriter) WriteHeader(code int) {
     rw.ResponseWriter.WriteHeader(code)
 }
 
-func LoggingMiddleware(client *logward.Client, next http.Handler) http.Handler {
+func LoggingMiddleware(client *logtide.Client, next http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         start := time.Now()
 
@@ -181,9 +181,9 @@ func LoggingMiddleware(client *logward.Client, next http.Handler) http.Handler {
 }
 
 func main() {
-    client, _ := logward.New(
-        logward.WithAPIKey("lp_your_api_key"),
-        logward.WithService("http-api"),
+    client, _ := logtide.New(
+        logtide.WithAPIKey("lp_your_api_key"),
+        logtide.WithService("http-api"),
     )
     defer client.Close()
 
@@ -207,7 +207,7 @@ func main() {
 
 ```bash
 go get github.com/go-chi/chi/v5
-go get github.com/logward-dev/logward-sdk-go
+go get github.com/logtide-dev/logtide-sdk-go
 ```
 
 ### Middleware Implementation
@@ -219,10 +219,10 @@ import (
     "net/http"
     "time"
     "github.com/go-chi/chi/v5"
-    "github.com/logward-dev/logward-sdk-go"
+    "github.com/logtide-dev/logtide-sdk-go"
 )
 
-func LogwardMiddleware(client *logward.Client) func(next http.Handler) http.Handler {
+func LogtideMiddleware(client *logtide.Client) func(next http.Handler) http.Handler {
     return func(next http.Handler) http.Handler {
         return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
             start := time.Now()
@@ -244,14 +244,14 @@ func LogwardMiddleware(client *logward.Client) func(next http.Handler) http.Hand
 }
 
 func main() {
-    client, _ := logward.New(
-        logward.WithAPIKey("lp_your_api_key"),
-        logward.WithService("chi-api"),
+    client, _ := logtide.New(
+        logtide.WithAPIKey("lp_your_api_key"),
+        logtide.WithService("chi-api"),
     )
     defer client.Close()
 
     r := chi.NewRouter()
-    r.Use(LogwardMiddleware(client))
+    r.Use(LogtideMiddleware(client))
 
     r.Get("/", func(w http.ResponseWriter, r *http.Request) {
         w.Write([]byte("Hello!"))
@@ -269,7 +269,7 @@ func main() {
 
 ```bash
 go get github.com/gofiber/fiber/v2
-go get github.com/logward-dev/logward-sdk-go
+go get github.com/logtide-dev/logtide-sdk-go
 ```
 
 ### Middleware Implementation
@@ -280,10 +280,10 @@ package main
 import (
     "time"
     "github.com/gofiber/fiber/v2"
-    "github.com/logward-dev/logward-sdk-go"
+    "github.com/logtide-dev/logtide-sdk-go"
 )
 
-func LogwardMiddleware(client *logward.Client) fiber.Handler {
+func LogtideMiddleware(client *logtide.Client) fiber.Handler {
     return func(c *fiber.Ctx) error {
         start := time.Now()
 
@@ -304,14 +304,14 @@ func LogwardMiddleware(client *logward.Client) fiber.Handler {
 }
 
 func main() {
-    client, _ := logward.New(
-        logward.WithAPIKey("lp_your_api_key"),
-        logward.WithService("fiber-api"),
+    client, _ := logtide.New(
+        logtide.WithAPIKey("lp_your_api_key"),
+        logtide.WithService("fiber-api"),
     )
     defer client.Close()
 
     app := fiber.New()
-    app.Use(LogwardMiddleware(client))
+    app.Use(LogtideMiddleware(client))
 
     app.Get("/", func(c *fiber.Ctx) error {
         return c.SendString("Hello!")
@@ -335,16 +335,16 @@ package main
 import (
     "context"
     "go.opentelemetry.io/otel"
-    "github.com/logward-dev/logward-sdk-go"
+    "github.com/logtide-dev/logtide-sdk-go"
 )
 
 func main() {
     // Setup OpenTelemetry (tracer provider, etc.)
     tracer := otel.Tracer("my-service")
 
-    client, _ := logward.New(
-        logward.WithAPIKey("lp_your_api_key"),
-        logward.WithService("traced-api"),
+    client, _ := logtide.New(
+        logtide.WithAPIKey("lp_your_api_key"),
+        logtide.WithService("traced-api"),
     )
     defer client.Close()
 
@@ -378,7 +378,7 @@ client.Info(ctx, "Processing", map[string]interface{}{
 ### Request ID Middleware
 
 ```go
-func RequestIDMiddleware(client *logward.Client) gin.HandlerFunc {
+func RequestIDMiddleware(client *logtide.Client) gin.HandlerFunc {
     return func(c *gin.Context) {
         requestID := c.GetHeader("X-Request-ID")
         if requestID == "" {
@@ -399,7 +399,7 @@ func RequestIDMiddleware(client *logward.Client) gin.HandlerFunc {
 ### Error Recovery Middleware
 
 ```go
-func RecoveryMiddleware(client *logward.Client) gin.HandlerFunc {
+func RecoveryMiddleware(client *logtide.Client) gin.HandlerFunc {
     return func(c *gin.Context) {
         defer func() {
             if err := recover(); err != nil {
@@ -418,7 +418,7 @@ func RecoveryMiddleware(client *logward.Client) gin.HandlerFunc {
 ### Authentication Logging
 
 ```go
-func AuthMiddleware(client *logward.Client) gin.HandlerFunc {
+func AuthMiddleware(client *logtide.Client) gin.HandlerFunc {
     return func(c *gin.Context) {
         token := c.GetHeader("Authorization")
 
@@ -457,4 +457,4 @@ func AuthMiddleware(client *logward.Client) gin.HandlerFunc {
 
 - Check out the [Examples Directory](../examples/) for complete working code
 - Read the [Quick Start Guide](QUICKSTART.md)
-- Review the [API Reference](https://pkg.go.dev/github.com/logward-dev/logward-sdk-go)
+- Review the [API Reference](https://pkg.go.dev/github.com/logtide-dev/logtide-sdk-go)

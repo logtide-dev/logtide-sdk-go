@@ -5,25 +5,25 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/logward-dev/logward-sdk-go"
+	"github.com/logtide-dev/logtide-sdk-go"
 )
 
 func main() {
-	// Create LogWard client
-	client, err := logward.New(
-		logward.WithAPIKey("lp_your_api_key_here"),
-		logward.WithService("gin-example"),
+	// Create LogTide client
+	client, err := logtide.New(
+		logtide.WithAPIKey("lp_your_api_key_here"),
+		logtide.WithService("gin-example"),
 	)
 	if err != nil {
-		log.Fatalf("Failed to create LogWard client: %v", err)
+		log.Fatalf("Failed to create LogTide client: %v", err)
 	}
 	defer client.Close()
 
 	// Create Gin router
 	r := gin.Default()
 
-	// Add LogWard middleware
-	r.Use(LogwardMiddleware(client))
+	// Add LogTide middleware
+	r.Use(LogtideMiddleware(client))
 
 	// Define routes
 	r.GET("/", func(c *gin.Context) {
@@ -91,8 +91,8 @@ func main() {
 	}
 }
 
-// LogwardMiddleware creates a Gin middleware that logs all requests to LogWard
-func LogwardMiddleware(client *logward.Client) gin.HandlerFunc {
+// LogtideMiddleware creates a Gin middleware that logs all requests to LogTide
+func LogtideMiddleware(client *logtide.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		// Record start time
 		start := time.Now()
@@ -126,9 +126,9 @@ func LogwardMiddleware(client *logward.Client) gin.HandlerFunc {
 		// Log the request
 		message := "HTTP request completed"
 		switch logLevel {
-		case logward.LogLevelError:
+		case logtide.LogLevelError:
 			client.Error(c.Request.Context(), message, metadata)
-		case logward.LogLevelWarn:
+		case logtide.LogLevelWarn:
 			client.Warn(c.Request.Context(), message, metadata)
 		default:
 			client.Info(c.Request.Context(), message, metadata)
@@ -137,13 +137,13 @@ func LogwardMiddleware(client *logward.Client) gin.HandlerFunc {
 }
 
 // getLogLevel determines the log level based on HTTP status code
-func getLogLevel(statusCode int) logward.LogLevel {
+func getLogLevel(statusCode int) logtide.LogLevel {
 	switch {
 	case statusCode >= 500:
-		return logward.LogLevelError
+		return logtide.LogLevelError
 	case statusCode >= 400:
-		return logward.LogLevelWarn
+		return logtide.LogLevelWarn
 	default:
-		return logward.LogLevelInfo
+		return logtide.LogLevelInfo
 	}
 }

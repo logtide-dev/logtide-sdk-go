@@ -3,7 +3,7 @@ module example-otel
 go 1.25.4
 
 require (
-	github.com/logward-dev/logward-sdk-go v0.1.0
+	github.com/logtide-dev/logtide-sdk-go v0.1.0
 	go.opentelemetry.io/otel v1.38.0
 	go.opentelemetry.io/otel/exporters/stdout/stdouttrace v1.38.0
 	go.opentelemetry.io/otel/sdk v1.38.0
@@ -19,4 +19,4 @@ require (
 	golang.org/x/sys v0.35.0 // indirect
 )
 
-replace github.com/logward-dev/logward-sdk-go => ../..
+replace github.com/logtide-dev/logtide-sdk-go => ../..

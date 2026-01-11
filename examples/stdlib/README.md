@@ -1,6 +1,6 @@
 # Standard Library Example
 
-This example demonstrates how to integrate LogWard with Go's standard library `net/http` package.
+This example demonstrates how to integrate LogTide with Go's standard library `net/http` package.
 
 ## Running the Example
 

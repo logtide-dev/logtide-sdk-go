@@ -1,18 +1,18 @@
 # Installation Guide
 
-This guide covers how to install and set up the LogWard Go SDK in your project.
+This guide covers how to install and set up the LogTide Go SDK in your project.
 
 ## Requirements
 
 - Go 1.21 or later
-- A LogWard account with an API key
+- A LogTide account with an API key
 
 ## Installation
 
 ### Using `go get`
 
 ```bash
-go get github.com/logward-dev/logward-sdk-go
+go get github.com/logtide-dev/logtide-sdk-go
 ```
 
 ### Using Go Modules
@@ -20,7 +20,7 @@ go get github.com/logward-dev/logward-sdk-go
 Add to your `go.mod`:
 
 ```go
-require github.com/logward-dev/logward-sdk-go v0.1.0
+require github.com/logtide-dev/logtide-sdk-go v0.1.0
 ```
 
 Then run:
@@ -39,13 +39,13 @@ package main
 import (
     "context"
     "fmt"
-    "github.com/logward-dev/logward-sdk-go"
+    "github.com/logtide-dev/logtide-sdk-go"
 )
 
 func main() {
-    client, err := logward.New(
-        logward.WithAPIKey("lp_your_api_key"),
-        logward.WithService("test-service"),
+    client, err := logtide.New(
+        logtide.WithAPIKey("lp_your_api_key"),
+        logtide.WithService("test-service"),
     )
     if err != nil {
         panic(err)
@@ -53,7 +53,7 @@ func main() {
     defer client.Close()
 
     client.Info(context.Background(), "Installation successful!", nil)
-    fmt.Println("LogWard SDK installed successfully!")
+    fmt.Println("LogTide SDK installed successfully!")
 }
 ```
 
@@ -65,7 +65,7 @@ go run main.go
 
 ## Getting Your API Key
 
-1. Sign up at [https://logward.dev](https://logward.dev)
+1. Sign up at [https://logtide.dev](https://logtide.dev)
 2. Create a project
 3. Navigate to **Project Settings** → **API Keys**
 4. Generate a new API key (starts with `lp_`)
@@ -76,8 +76,8 @@ go run main.go
 Instead of hardcoding your API key, use environment variables:
 
 ```bash
-export LOGWARD_API_KEY="lp_your_api_key_here"
-export LOGWARD_SERVICE="my-service"
+export LOGTIDE_API_KEY="lp_your_api_key_here"
+export LOGTIDE_SERVICE="my-service"
 ```
 
 Then in your code:
@@ -85,9 +85,9 @@ Then in your code:
 ```go
 import "os"
 
-client, err := logward.New(
-    logward.WithAPIKey(os.Getenv("LOGWARD_API_KEY")),
-    logward.WithService(os.Getenv("LOGWARD_SERVICE")),
+client, err := logtide.New(
+    logtide.WithAPIKey(os.Getenv("LOGTIDE_API_KEY")),
+    logtide.WithService(os.Getenv("LOGTIDE_SERVICE")),
 )
 ```
 
@@ -105,13 +105,13 @@ All dependencies are automatically managed by Go modules.
 To update to the latest version:
 
 ```bash
-go get -u github.com/logward-dev/logward-sdk-go
+go get -u github.com/logtide-dev/logtide-sdk-go
 ```
 
 Or specify a version:
 
 ```bash
-go get github.com/logward-dev/logward-sdk-go@v0.2.0
+go get github.com/logtide-dev/logtide-sdk-go@v0.2.0
 ```
 
 ## Troubleshooting
@@ -135,9 +135,9 @@ If you see "invalid or missing API key":
 
 ### Connection Issues
 
-If logs aren't reaching LogWard:
+If logs aren't reaching LogTide:
 - Check your network connectivity
-- Verify the base URL (default: `https://api.logward.dev`)
+- Verify the base URL (default: `https://api.logtide.dev`)
 - Check firewall settings
 - Look for error logs
 
@@ -146,4 +146,4 @@ If logs aren't reaching LogWard:
 - Read the [Quick Start Guide](QUICKSTART.md)
 - Explore [Framework Integrations](INTEGRATIONS.md)
 - Check out the [Examples](../examples/)
-- Review the [API Documentation](https://pkg.go.dev/github.com/logward-dev/logward-sdk-go)
+- Review the [API Documentation](https://pkg.go.dev/github.com/logtide-dev/logtide-sdk-go)

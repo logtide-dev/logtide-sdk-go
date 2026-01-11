@@ -1,6 +1,6 @@
 # Echo Framework Example
 
-This example demonstrates how to integrate LogWard with the Echo web framework.
+This example demonstrates how to integrate LogTide with the Echo web framework.
 
 ## Running the Example
 

@@ -10,7 +10,7 @@ import (
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/logward-dev/logward-sdk-go"
+	"github.com/logtide-dev/logtide-sdk-go"
 )
 
 func main() {
@@ -30,15 +30,15 @@ func main() {
 	}()
 
 	otel.SetTracerProvider(tp)
-	tracer := tp.Tracer("logward-example")
+	tracer := tp.Tracer("logtide-example")
 
-	// Create LogWard client
-	client, err := logward.New(
-		logward.WithAPIKey("lp_your_api_key_here"),
-		logward.WithService("otel-example"),
+	// Create LogTide client
+	client, err := logtide.New(
+		logtide.WithAPIKey("lp_your_api_key_here"),
+		logtide.WithService("otel-example"),
 	)
 	if err != nil {
-		log.Fatalf("Failed to create LogWard client: %v", err)
+		log.Fatalf("Failed to create LogTide client: %v", err)
 	}
 	defer client.Close()
 
@@ -63,7 +63,7 @@ func main() {
 }
 
 // processOrder simulates order processing with a child span
-func processOrder(ctx context.Context, tracer trace.Tracer, client *logward.Client, orderID string) {
+func processOrder(ctx context.Context, tracer trace.Tracer, client *logtide.Client, orderID string) {
 	ctx, span := tracer.Start(ctx, "process-order")
 	defer span.End()
 
@@ -86,7 +86,7 @@ func processOrder(ctx context.Context, tracer trace.Tracer, client *logward.Clie
 }
 
 // validateOrder simulates order validation with another child span
-func validateOrder(ctx context.Context, tracer trace.Tracer, client *logward.Client, orderID string) {
+func validateOrder(ctx context.Context, tracer trace.Tracer, client *logtide.Client, orderID string) {
 	ctx, span := tracer.Start(ctx, "validate-order")
 	defer span.End()
 
@@ -104,7 +104,7 @@ func validateOrder(ctx context.Context, tracer trace.Tracer, client *logward.Cli
 }
 
 // processPayment simulates payment processing
-func processPayment(ctx context.Context, tracer trace.Tracer, client *logward.Client, paymentID string) {
+func processPayment(ctx context.Context, tracer trace.Tracer, client *logtide.Client, paymentID string) {
 	ctx, span := tracer.Start(ctx, "process-payment")
 	defer span.End()
 

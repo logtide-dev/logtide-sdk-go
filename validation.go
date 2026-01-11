@@ -1,4 +1,4 @@
-package logward
+package logtide
 
 import (
 	"fmt"
@@ -19,7 +19,7 @@ var (
 	}
 )
 
-// validateLog validates a single log entry according to LogWard's requirements.
+// validateLog validates a single log entry according to LogTide's requirements.
 func validateLog(log *Log) error {
 	// Validate service name
 	if len(log.Service) == 0 {
@@ -53,7 +53,7 @@ func validateLog(log *Log) error {
 	return nil
 }
 
-// validateBatch validates a batch of logs according to LogWard's requirements.
+// validateBatch validates a batch of logs according to LogTide's requirements.
 func validateBatch(logs []Log) error {
 	if len(logs) == 0 {
 		return &ValidationError{Field: "logs", Message: "at least one log is required"}

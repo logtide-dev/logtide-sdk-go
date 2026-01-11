@@ -1,4 +1,4 @@
-package logward
+package logtide
 
 import (
 	"sync"

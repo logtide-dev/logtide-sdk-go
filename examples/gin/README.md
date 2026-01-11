@@ -1,6 +1,6 @@
 # Gin Framework Example
 
-This example demonstrates how to integrate LogWard with the Gin web framework.
+This example demonstrates how to integrate LogTide with the Gin web framework.
 
 ## Running the Example
 
@@ -41,4 +41,4 @@ curl -X POST http://localhost:8080/login \
 curl http://localhost:8080/error
 ```
 
-Each request will be automatically logged to LogWard with detailed metadata.
+Each request will be automatically logged to LogTide with detailed metadata.

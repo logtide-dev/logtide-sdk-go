@@ -1,13 +1,13 @@
 # Quick Start Guide
 
-Get started with the LogWard Go SDK in minutes!
+Get started with the LogTide Go SDK in minutes!
 
 ## Basic Setup
 
 ### 1. Install the SDK
 
 ```bash
-go get github.com/logward-dev/logward-sdk-go
+go get github.com/logtide-dev/logtide-sdk-go
 ```
 
 ### 2. Import and Initialize
@@ -19,14 +19,14 @@ import (
     "context"
     "log"
 
-    "github.com/logward-dev/logward-sdk-go"
+    "github.com/logtide-dev/logtide-sdk-go"
 )
 
 func main() {
     // Create client
-    client, err := logward.New(
-        logward.WithAPIKey("lp_your_api_key"),
-        logward.WithService("my-service"),
+    client, err := logtide.New(
+        logtide.WithAPIKey("lp_your_api_key"),
+        logtide.WithService("my-service"),
     )
     if err != nil {
         log.Fatal(err)
@@ -46,7 +46,7 @@ func main() {
 go run main.go
 ```
 
-Check your [LogWard dashboard](https://app.logward.dev) to see your logs!
+Check your [LogTide dashboard](https://app.logtide.dev) to see your logs!
 
 ## Leveled Logging
 
@@ -96,18 +96,18 @@ client.Info(ctx, "User action", map[string]interface{}{
 Customize the client behavior:
 
 ```go
-client, err := logward.New(
+client, err := logtide.New(
     // Required
-    logward.WithAPIKey("lp_your_api_key"),
-    logward.WithService("my-service"),
+    logtide.WithAPIKey("lp_your_api_key"),
+    logtide.WithService("my-service"),
 
     // Optional
-    logward.WithBaseURL("https://api.logward.dev"),
-    logward.WithBatchSize(100),                    // Max logs per batch
-    logward.WithFlushInterval(5*time.Second),      // Flush interval
-    logward.WithTimeout(30*time.Second),           // HTTP timeout
-    logward.WithRetry(3, 1*time.Second, 60*time.Second), // Retry config
-    logward.WithCircuitBreaker(5, 30*time.Second), // Circuit breaker
+    logtide.WithBaseURL("https://api.logtide.dev"),
+    logtide.WithBatchSize(100),                    // Max logs per batch
+    logtide.WithFlushInterval(5*time.Second),      // Flush interval
+    logtide.WithTimeout(30*time.Second),           // HTTP timeout
+    logtide.WithRetry(3, 1*time.Second, 60*time.Second), // Retry config
+    logtide.WithCircuitBreaker(5, 30*time.Second), // Circuit breaker
 )
 ```
 
@@ -117,7 +117,7 @@ client, err := logward.New(
 
 ```go
 func main() {
-    client := setupLogward()
+    client := setupLogtide()
     defer client.Close()
 
     client.Info(ctx, "Application starting", map[string]interface{}{
@@ -187,7 +187,7 @@ func processOrder(ctx context.Context, orderID string) {
 ### 1. Always Close the Client
 
 ```go
-client, err := logward.New(...)
+client, err := logtide.New(...)
 if err != nil {
     return err
 }
@@ -266,11 +266,11 @@ client.Flush(ctx) // Ensure it's sent immediately
 err := client.Info(ctx, "message", metadata)
 if err != nil {
     switch {
-    case errors.Is(err, logward.ErrClientClosed):
+    case errors.Is(err, logtide.ErrClientClosed):
         // Client was closed
-    case errors.Is(err, logward.ErrCircuitOpen):
+    case errors.Is(err, logtide.ErrCircuitOpen):
         // Circuit breaker is open
-    case errors.Is(err, logward.ErrInvalidAPIKey):
+    case errors.Is(err, logtide.ErrInvalidAPIKey):
         // Invalid API key
     default:
         // Other errors
@@ -287,10 +287,10 @@ if err != nil {
 // In tests, you can skip logging or use a mock
 func TestMyFunction(t *testing.T) {
     // Option 1: Use a test client that doesn't send logs
-    client, _ := logward.New(
-        logward.WithAPIKey("lp_test_key"),
-        logward.WithService("test"),
-        logward.WithBaseURL("http://localhost:9999"), // Non-existent
+    client, _ := logtide.New(
+        logtide.WithAPIKey("lp_test_key"),
+        logtide.WithService("test"),
+        logtide.WithBaseURL("http://localhost:9999"), // Non-existent
     )
     defer client.Close()
 
@@ -302,5 +302,5 @@ func TestMyFunction(t *testing.T) {
 
 - Explore [Framework Integrations](INTEGRATIONS.md) for Gin, Echo, and stdlib
 - Check out complete [Examples](../examples/)
-- Review the [API Reference](https://pkg.go.dev/github.com/logward-dev/logward-sdk-go)
+- Review the [API Reference](https://pkg.go.dev/github.com/logtide-dev/logtide-sdk-go)
 - Learn about [Advanced Configuration](../README.md#configuration)
